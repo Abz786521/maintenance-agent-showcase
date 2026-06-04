@@ -1,0 +1,18 @@
+Copyright © 2026 Abdul Talib. All Rights Reserved.
+
+This repository is a SHOWCASE only. It describes and demonstrates a proprietary
+software system but does not contain its source code.
+
+No part of this work — including the concepts, designs, architecture, text,
+images, and any sample code shown — may be copied, reproduced, modified,
+republished, distributed, sold, or used in any form, in whole or in part,
+without the express prior written permission of Abdul Talib.
+
+The underlying system, its source code, workflows and integrations are
+proprietary and confidential and are not licensed for any use.
+
+No licence, express or implied, is granted to any patent, copyright, trade
+secret, or other intellectual property right of Abdul Talib by virtue of this
+repository being publicly viewable.
+
+For permissions or enquiries, contact the copyright holder, Abdul Talib.

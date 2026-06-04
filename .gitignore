@@ -1,0 +1,29 @@
+# Safety net: never let real data or secrets into the public showcase repo.
+# This repo should ONLY ever contain: README.md, LICENSE.txt, /docs, /screenshots (synthetic).
+
+# Secrets / config
+*config*.json
+*.env
+*.key
+*.pem
+*token*
+*secret*
+*credential*
+
+# Any real system data (must never appear here)
+tickets.json
+*store.json
+contractor_contacts.json
+/cache/
+/logs/
+/memory/
+/profile/
+**/profile/
+**/auth/
+**/node_modules/
+*.xlsx
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+desktop.ini
