@@ -26,4 +26,9 @@ Describe 'Showcase repository packaging' {
         Join-Path $root 'docs/EVIDENCE.md' | Should -Exist
         Join-Path $root 'demo/agent/README.md' | Should -Exist
     }
+
+    It 'includes a non-empty dashboard screenshot for the README' {
+        $screenshot = Get-Item -Path (Join-Path $root 'docs/dashboard.png')
+        $screenshot.Length | Should -BeGreaterThan 50000
+    }
 }

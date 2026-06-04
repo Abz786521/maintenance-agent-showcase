@@ -8,6 +8,8 @@
 
 **A 24/7 AI agent that runs a property-maintenance back office end-to-end — reading tenant requests, raising and tracking jobs, coordinating contractors, and keeping every record in sync across three separate systems.**
 
+![Maintenance Agent dashboard demo](docs/dashboard.png)
+
 > © 2026 **Abdul Talib** — All Rights Reserved. This repository is a **showcase only**.
 > The source code, workflows and integrations are **proprietary and private** and are **not** published here.
 > See `LICENSE.txt`.

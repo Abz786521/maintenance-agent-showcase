@@ -9,6 +9,7 @@ What it does publish is a clean-room proof of the operating logic on fictional t
 | Evidence | File | What it shows |
 |---|---|---|
 | Browser dashboard demo | `demo/demo.html` and `docs/index.html` | The operator view: risk tiles, SLA badges, agent activity, ticket cards and synthetic work-order states. |
+| Dashboard screenshot | `docs/dashboard.png` | A quick visual preview of the synthetic operations dashboard in the README. |
 | PowerShell decision module | `demo/agent/AgentDemo.psm1` | Deterministic triage logic: issue classification, SLA windows, postcode-region routing, title formatting and duplicate prevention. |
 | Runnable dry-run | `demo/agent/Run-Demo.ps1` | A complete synthetic run across overdue damp, emergency leak, complaint-language hold, pest advice, duplicate guard and routine repairs. |
 | Pester tests | `tests/*.Tests.ps1` | Unit and integration coverage for the logic that matters. |
