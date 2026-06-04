@@ -13,6 +13,8 @@ That's it. The demo loads built-in sample tickets and renders the live operation
 
 No internet connection, no Node, no PowerShell, and no configuration are required. Everything the demo needs is embedded in the single HTML file.
 
+`docs/index.html` is the same dashboard kept as a GitHub Pages-ready entry point.
+
 ## Run the clean-room logic demo
 
 The repository also contains a self-contained PowerShell demonstration of the agent's decision logic. It uses fictional tickets only and performs no disk, network, Freshdesk, property-platform, email, or messaging actions.

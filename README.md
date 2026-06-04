@@ -1,6 +1,10 @@
 # 🛠️ Autonomous Property-Maintenance Operations Agent
 
 [![CI](https://github.com/Abz786521/maintenance-agent-showcase/actions/workflows/ci.yml/badge.svg)](https://github.com/Abz786521/maintenance-agent-showcase/actions/workflows/ci.yml)
+![PowerShell](https://img.shields.io/badge/PowerShell-5.1%20%2B%207-5391FE)
+![Platform](https://img.shields.io/badge/platform-Windows%20%2B%20Linux-2ea44f)
+![Data](https://img.shields.io/badge/data-100%25%20synthetic-blueviolet)
+[![License: View-only](https://img.shields.io/badge/license-View--only-red)](LICENSE.txt)
 
 **A 24/7 AI agent that runs a property-maintenance back office end-to-end — reading tenant requests, raising and tracking jobs, coordinating contractors, and keeping every record in sync across three separate systems.**
 
@@ -84,6 +88,8 @@ This project showcases the ability to:
 - **Deliver full-stack** — backend automation, a live operations dashboard (HTML/JS), data modelling, and the operational tooling to keep it all running — designed, built, and operated solo.
 
 > 🎬 **Try it live:** open [`demo/demo.html`](demo/demo.html) in any browser — a self-contained demo of the operations dashboard running on **synthetic sample data** (no server, no install, no real data). See [`SETUP.md`](SETUP.md).
+>
+> [`docs/index.html`](docs/index.html) contains the same dashboard as a GitHub Pages-ready entry point.
 
 ### Runnable clean-room logic demo
 
@@ -99,6 +105,16 @@ The logic is covered by Pester tests and GitHub Actions CI on Windows and Ubuntu
 Import-Module Pester -MinimumVersion 5.0 -Force
 Invoke-Pester -Path .\tests -Output Detailed
 ```
+
+For a concise proof map, see [`docs/EVIDENCE.md`](docs/EVIDENCE.md).
+
+### Proof commands
+
+| Command | Proves |
+|---|---|
+| `powershell -NoProfile -ExecutionPolicy Bypass -File .\demo\agent\Run-Demo.ps1` | End-to-end synthetic decision run: classification, SLA scoring, routing, human hold, pest advice, duplicate guard. |
+| `Invoke-Pester -Path .\tests -Output Detailed` | Unit and integration coverage for the clean-room logic module. |
+| GitHub Actions `CI` | Same tests on Windows and Ubuntu, plus a smoke run of the demo script. |
 
 ## Architecture at a glance
 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+  Autonomous Property-Maintenance Agent — DASHBOARD DEMO
+  © 2026 Abdul Talib — All Rights Reserved.
+  Self-contained showcase. Runs in any browser with NO server and NO real data.
+  All tenants, addresses and tickets below are entirely fictional sample data.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maintenance Agent — Live Demo</title>
+<style>
+  :root{
+    --bg:#0d1117; --elev:#161b22; --elev2:#1c2330; --border:#30363d;
+    --text:#c9d1d9; --muted:#8b949e; --dim:#6e7681;
+    --accent:#58a6ff; --urgent:#f85149; --warn:#d29922; --ok:#3fb950; --purple:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+  header h1{font-size:1.5em;margin:0;font-weight:700}
+  .demo-pill{background:rgba(163,113,247,.18);color:#d2a8ff;border:1px solid rgba(163,113,247,.5);
+    font-size:.7em;font-weight:700;letter-spacing:.5px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+  .sub{color:var(--muted);font-size:.85em;margin:2px 0 16px}
+  /* SLA alert */
+  .sla{display:flex;align-items:center;gap:12px;background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.4);
+    border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:.92em}
+  .sla b{color:#ff7b72}
+  .sla .ico{font-size:1.3em}
+  /* tiles */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+  .tile{background:var(--elev);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:12px 14px;position:relative}
+  .tile .lbl{font-size:.66em;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700}
+  .tile .num{font-size:2em;font-weight:700;line-height:1.1;margin-top:3px}
+  .tile .spl{font-size:.72em;color:var(--dim);margin-top:1px}
+  .tile.red{border-left-color:var(--urgent)} .tile.red .num{color:#ff7b72}
+  .tile.amber{border-left-color:var(--warn)} .tile.amber .num{color:#e3b341}
+  .tile.blue .num{color:#79c0ff}
+  /* agent activity */
+  .agent{background:var(--elev);border:1px solid var(--border);border-radius:10px;padding:12px 15px;margin-bottom:16px;font-size:.9em}
+  .agent .hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:pulse 1.3s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .agent .sub2{color:var(--dim);font-size:.8em;text-transform:uppercase;letter-spacing:.5px}
+  .bar{height:5px;background:var(--elev2);border-radius:3px;overflow:hidden;margin:8px 0}
+  .bar>div{height:100%;background:var(--accent);width:58%}
+  .next{display:flex;gap:18px;color:var(--muted);flex-wrap:wrap}
+  .next b{color:var(--accent)}
+  .recent{margin:6px 0 0;padding-left:16px;color:var(--dim);font-size:.92em;line-height:1.6}
+  /* cards */
+  h2.sec{font-size:.78em;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:18px 0 8px}
+  .card{background:var(--elev);border:1px solid var(--border);border-left:3px solid var(--dim);border-radius:8px;padding:12px 15px;margin-bottom:8px}
+  .card.urgent{border-left-color:var(--urgent)} .card.high{border-left-color:var(--warn)} .card.damp{border-left-color:#58a6ff}
+  .card .act{color:var(--accent);font-size:.9em;font-weight:600}
+  .card .subj{margin:3px 0 7px;font-weight:600}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .b{font-size:.72em;font-weight:600;padding:2px 8px;border-radius:8px;letter-spacing:.2px}
+  .b-id{color:var(--accent);font-family:Consolas,monospace}
+  .b-pri-u{background:var(--urgent);color:#fff} .b-pri-h{background:var(--warn);color:#0d1117} .b-pri-l{background:#2d333b;color:var(--muted)}
+  .b-sla-red{background:var(--urgent);color:#fff;font-weight:700} .b-sla-amber{background:var(--warn);color:#0d1117;font-weight:700}
+  .b-sla-ok{background:rgba(63,185,80,.2);color:#7ee787;border:1px solid rgba(63,185,80,.4)}
+  .b-wo{background:#d29922;color:#0d1117;font-weight:700}
+  .b-repeat{background:rgba(163,113,247,.22);color:#d2a8ff;border:1px solid rgba(163,113,247,.5)}
+  .b-noack{background:rgba(210,153,34,.2);color:#e3b341;border:1px solid rgba(210,153,34,.45)}
+  .b-trade{background:var(--elev2);color:var(--text);border:1px solid var(--border)}
+  .b-region{background:var(--elev2);color:var(--accent);border:1px solid rgba(88,166,255,.3)}
+  .b-photo{background:#347d39;color:#fff}
+  .b-st-open{background:rgba(88,166,255,.14);color:#79c0ff;border:1px solid rgba(88,166,255,.35);margin-left:auto}
+  footer{color:var(--dim);font-size:.8em;margin-top:20px;border-top:1px solid var(--border);padding-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🛠️ Maintenance Brief</h1>
+    <span class="demo-pill">Demo Mode · synthetic data</span>
+  </header>
+  <div class="sub" id="sub">Tuesday · live operations dashboard — every ticket below is fictional sample data</div>
+
+  <div class="sla"><span class="ico">⚠</span>
+    <span><b>2 damp/mould tickets OVERDUE</b> — past the statutory 10-working-day investigation window with no live work order. Oldest: #10421 at 71 days.</span>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="agent">
+    <div class="hd"><span class="dot"></span><b>Agent activity</b><span class="sub2">live · watchdog beating</span></div>
+    <div id="agentNow">▶ Processing tickets 7/12 — auto-titling “2 Sample Road … // damp”</div>
+    <div class="bar"><div></div></div>
+    <div class="next">
+      <span>⏱ Next ticket sweep: <b id="cd1">4m 50s</b></span>
+      <span>🧹 Next sign-off scan: <b id="cd2">21m 10s</b></span>
+    </div>
+    <ul class="recent">
+      <li>Acknowledged #10487 — tenant emailed, title set, observation note posted</li>
+      <li>Routed #10485 to <b>roofer</b> (penetrating damp — patch high on wall after rain)</li>
+      <li>Held #10486 for review — <b>complaint</b> language detected (human-only)</li>
+    </ul>
+  </div>
+
+  <h2 class="sec">Needs review</h2>
+  <div id="cards"></div>
+
+  <footer>© 2026 Abdul Talib — All Rights Reserved. Showcase demo on synthetic data; not for copy or reuse. The real system is private &amp; proprietary.</footer>
+</div>
+
+<script>
+/* ---- Synthetic sample data (entirely fictional) ---- */
+const tickets = [
+  { id:10421, pri:'High',   trade:'mould', region:'NE', sla:'red',   age:71, repeat:false, noack:true,  photos:2, wo:false,
+    subj:'12 Example Terrace, Demoville, DE1 2AB // mould', act:'Raise mould WO — overdue (Awaab’s Law), no live work order' },
+  { id:10455, pri:'High',   trade:'damp',  region:'NW', sla:'red',   age:68, repeat:false, noack:false, photos:3, wo:false,
+    subj:'4 Sample Street, Testfield, TF3 4CD // damp', act:'Raise damp WO — overdue, allocate regional damp contractor' },
+  { id:10472, pri:'Urgent', trade:'leak',  region:'NW', sla:null,    age:1,  repeat:false, noack:true,  photos:1, wo:false,
+    subj:'9 Mock Avenue, Sampleton, SA5 6EF // leak', act:'Urgent — route to plumber, confirm tenant access today' },
+  { id:10486, pri:'High',   trade:'damp',  region:'NE', sla:'amber', age:6,  repeat:false, noack:false, photos:0, wo:false,
+    subj:'21 Placeholder Road, Demo City, DC7 8GH // damp', act:'Approaching investigation deadline — book inspection' },
+  { id:10488, pri:'Low',    trade:'pest',  region:'NW', sla:null,    age:0,  repeat:true,  noack:false, photos:0, wo:false,
+    subj:'2 Fictional Close, Testburgh, TB9 0JK // pest', act:'Pest — council advice sent automatically (repeat of #10460)' },
+  { id:10490, pri:'High',   trade:'mould', region:'NW', sla:'ok',    age:3,  repeat:false, noack:false, photos:2, wo:true,
+    subj:'7 Imaginary Lane, Exampleford, EX2 3LM // mould', act:'WO live — contractor allocated, awaiting visit' },
+];
+
+const TRADE={damp:'Damp',mould:'Mould',leak:'Leak',pest:'Pest'};
+function priCls(p){return p==='Urgent'?'b-pri-u':p==='High'?'b-pri-h':'b-pri-l';}
+
+/* metric tiles */
+const isDM=t=>t.trade==='damp'||t.trade==='mould';
+const tiles=[
+  {lbl:'Overdue damp/mould',cls:'red',  num:tickets.filter(t=>isDM(t)&&t.sla==='red').length, spl:'Awaab’s Law breach'},
+  {lbl:'Awaiting reply',     cls:'amber',num:tickets.filter(t=>t.noack).length, spl:'no acknowledgement yet'},
+  {lbl:'Urgent',             cls:'red',  num:tickets.filter(t=>t.pri==='Urgent').length, spl:''},
+  {lbl:'Damp',               cls:'blue', num:tickets.filter(t=>t.trade==='damp').length, spl:''},
+  {lbl:'Mould',              cls:'blue', num:tickets.filter(t=>t.trade==='mould').length, spl:''},
+  {lbl:'Open tickets',       cls:'blue', num:tickets.length, spl:'demo sample'},
+];
+document.getElementById('tiles').innerHTML=tiles.map(t=>
+  `<div class="tile ${t.cls}"><div class="lbl">${t.lbl}</div><div class="num">${t.num}</div><div class="spl">${t.spl}</div></div>`).join('');
+
+/* cards */
+function slaBadge(t){
+  if(!isDM(t))return'';
+  if(t.wo)return`<span class="b b-wo">WO ✓ ${t.age}d</span>`;
+  if(t.sla==='red')return`<span class="b b-sla-red">OVERDUE ${t.age}d</span>`;
+  if(t.sla==='amber')return`<span class="b b-sla-amber">DUE ${t.age}d</span>`;
+  if(t.sla==='ok')return`<span class="b b-sla-ok">${t.age}d</span>`;
+  return'';
+}
+const cardCls=t=>t.pri==='Urgent'?'urgent':isDM(t)?'damp':'high';
+document.getElementById('cards').innerHTML=tickets.map(t=>`
+  <div class="card ${cardCls(t)}">
+    <div class="act">${t.act}</div>
+    <div class="subj">${t.subj}</div>
+    <div class="meta">
+      <span class="b b-id">#${t.id}</span>
+      <span class="b ${priCls(t.pri)}">${t.pri}</span>
+      ${slaBadge(t)}
+      ${t.repeat?'<span class="b b-repeat">REPEAT ×2</span>':''}
+      ${t.noack?'<span class="b b-noack">NO REPLY</span>':''}
+      <span class="b b-trade">${TRADE[t.trade]}</span>
+      <span class="b b-region">${t.region}</span>
+      ${t.photos?`<span class="b b-photo">${t.photos} photo${t.photos>1?'s':''}</span>`:''}
+      <span class="b b-st-open">OPEN</span>
+    </div>
+  </div>`).join('');
+
+/* tiny live touch: tick the countdowns */
+let a=290,b=1270;
+setInterval(()=>{a=a>0?a-1:299;b=b>0?b-1:1799;
+  document.getElementById('cd1').textContent=Math.floor(a/60)+'m '+(a%60)+'s';
+  document.getElementById('cd2').textContent=Math.floor(b/60)+'m '+(b%60)+'s';
+},1000);
+document.getElementById('sub').textContent=
+  new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+
+  ' · live operations dashboard — every ticket below is fictional sample data';
+</script>
+</body>
+</html>
