@@ -1,5 +1,5 @@
 # Safety net: never let real data or secrets into the public showcase repo.
-# This repo should ONLY ever contain: README.md, LICENSE.txt, /docs, /screenshots (synthetic).
+# This repo should ONLY ever contain showcase docs, synthetic demos, tests, and CI.
 
 # Secrets / config
 *config*.json

@@ -1,5 +1,7 @@
 # 🛠️ Autonomous Property-Maintenance Operations Agent
 
+[![CI](https://github.com/Abz786521/maintenance-agent-showcase/actions/workflows/ci.yml/badge.svg)](https://github.com/Abz786521/maintenance-agent-showcase/actions/workflows/ci.yml)
+
 **A 24/7 AI agent that runs a property-maintenance back office end-to-end — reading tenant requests, raising and tracking jobs, coordinating contractors, and keeping every record in sync across three separate systems.**
 
 > © 2026 **Abdul Talib** — All Rights Reserved. This repository is a **showcase only**.
@@ -82,6 +84,21 @@ This project showcases the ability to:
 - **Deliver full-stack** — backend automation, a live operations dashboard (HTML/JS), data modelling, and the operational tooling to keep it all running — designed, built, and operated solo.
 
 > 🎬 **Try it live:** open [`demo/demo.html`](demo/demo.html) in any browser — a self-contained demo of the operations dashboard running on **synthetic sample data** (no server, no install, no real data). See [`SETUP.md`](SETUP.md).
+
+### Runnable clean-room logic demo
+
+This repository also includes a small PowerShell module that demonstrates the agent's decision pipeline on synthetic tickets only. It classifies tenant wording, scores SLA windows, maps regions, routes trades, prevents duplicate work orders, and emits the next action without touching any external system.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\demo\agent\Run-Demo.ps1
+```
+
+The logic is covered by Pester tests and GitHub Actions CI on Windows and Ubuntu:
+
+```powershell
+Import-Module Pester -MinimumVersion 5.0 -Force
+Invoke-Pester -Path .\tests -Output Detailed
+```
 
 ## Architecture at a glance
 

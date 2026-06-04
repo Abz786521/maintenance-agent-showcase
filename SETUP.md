@@ -13,6 +13,28 @@ That's it. The demo loads built-in sample tickets and renders the live operation
 
 No internet connection, no Node, no PowerShell, and no configuration are required. Everything the demo needs is embedded in the single HTML file.
 
+## Run the clean-room logic demo
+
+The repository also contains a self-contained PowerShell demonstration of the agent's decision logic. It uses fictional tickets only and performs no disk, network, Freshdesk, property-platform, email, or messaging actions.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\demo\agent\Run-Demo.ps1
+```
+
+Expected highlights include overdue damp/mould work orders, a 24-hour emergency route, complaint-language human hold, pest advice, and a duplicate work-order guard.
+
+## Run the tests
+
+The test suite uses Pester 5 and covers classification, SLA maths, routing, title formatting, duplicate prevention, and full-pipeline integration.
+
+```powershell
+Install-Module Pester -Scope CurrentUser -MinimumVersion 5.5.0 -Force -SkipPublisherCheck
+Import-Module Pester -MinimumVersion 5.0 -Force
+Invoke-Pester -Path .\tests -Output Detailed
+```
+
+GitHub Actions runs the same suite on Windows and Ubuntu.
+
 ## What you're looking at
 
 | In the demo | What it represents in production |
